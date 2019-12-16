@@ -24,7 +24,7 @@ public class AddChildOperationService {
         Person mother = PersonRegistryService.getPersonAccessor().getPerson(addChildBo.getMotherName());
         if (Optional.ofNullable(mother).isPresent()) {
             mother.getChildren().add(addChildBo.getName());
-            Person child = new Person(addChildBo.getName(), Gender.valueOf(addChildBo.getGender()), Collections.EMPTY_LIST, null, ++CounterService.getCounter().count, addChildBo.getMotherName());
+            Person child = new Person(addChildBo.getName(), Gender.valueOf(addChildBo.getGender()), Collections.EMPTY_LIST, null, CounterService.incrementAndGet(), addChildBo.getMotherName());
             PersonRegistryService.getPersonAccessor().registerPerson(addChildBo.getName(), child);
             System.out.println("CHILD_ADDITION_SUCCEEDED");
         } else {

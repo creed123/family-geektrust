@@ -34,6 +34,7 @@ public class SiblingsFinderService implements IRelationshipFinderService {
         if (Optional.ofNullable(siblingsFinderService).isPresent()) {
             return siblingsFinderService;
         }
-        return new SiblingsFinderService();
+        siblingsFinderService = new SiblingsFinderService();
+        return siblingsFinderService;
     }
 }

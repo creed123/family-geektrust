@@ -4,9 +4,9 @@ import java.util.Optional;
 
 public class CounterService {
 
-    public static CounterService counter;
+    private static CounterService counter;
 
-    public Integer count = 0;
+    private static Integer count = 0;
 
     public static CounterService getCounter() {
         if (Optional.ofNullable(counter).isPresent()) {
@@ -14,5 +14,10 @@ public class CounterService {
         }
         counter = new CounterService();
         return counter;
+    }
+
+    public static Integer incrementAndGet() {
+        count++;
+        return count;
     }
 }

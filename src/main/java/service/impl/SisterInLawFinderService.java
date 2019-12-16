@@ -45,6 +45,7 @@ public class SisterInLawFinderService implements IRelationshipFinderService {
         if (Optional.ofNullable(sisterInLawFinderService).isPresent()) {
             return sisterInLawFinderService;
         }
-        return new SisterInLawFinderService();
+        sisterInLawFinderService = new SisterInLawFinderService();
+        return sisterInLawFinderService;
     }
 }

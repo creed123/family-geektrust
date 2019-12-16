@@ -38,6 +38,7 @@ public class PaternalUncleFinderService implements IRelationshipFinderService {
         if (Optional.ofNullable(paternalUncleFinderService).isPresent()) {
             return paternalUncleFinderService;
         }
-        return new PaternalUncleFinderService();
+        paternalUncleFinderService = new PaternalUncleFinderService();
+        return paternalUncleFinderService;
     }
 }
