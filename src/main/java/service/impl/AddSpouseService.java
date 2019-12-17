@@ -21,7 +21,7 @@ public class AddSpouseService {
         return new AddSpouseService();
     }
 
-    public void addSpouse(AddSpouseBo addSpouseBo) throws Exception {
+    public void addSpouse(AddSpouseBo addSpouseBo) {
         try {
             Person spouse = PersonRegistryService.getPersonAccessor().getPerson(addSpouseBo.getSpouseName());
             if (Optional.ofNullable(spouse).isPresent()) {

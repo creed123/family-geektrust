@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import static utility.FamilyUtil.*;
+
 public class RelationshipService {
 
     public static RelationshipService getRelationshipOperationService;
@@ -20,14 +22,17 @@ public class RelationshipService {
     }
 
     public void printRelations(GetRelationshipBo getRelationshipBo) throws Exception {
-        List<String> names = Arrays.asList(Relationship.values()).stream()
+        List<String> names = Arrays.stream(Relationship.values())
                 .filter(relationship -> relationship.relationship.equals(getRelationshipBo.getRelationShip()))
                 .findFirst().orElseThrow(Exception::new)
                 .relationshipFinderService.findRelations(getRelationshipBo.getName());
-        if (names.isEmpty()) {
-            System.out.println("NONE");
-        } else {
-            FamilyUtil.formatAndPrint(names);
-        }
+        Optional.ofNullable(names).ifPresent((List<String> result) -> {
+            if (result.isEmpty()) {
+                System.out.println("NONE");
+            } else {
+                formatAndPrint(result);
+            }
+        });
+
     }
 }

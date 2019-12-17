@@ -36,8 +36,4 @@ public class PersonRegistryService {
         }
         personNameToDetails.put(name, person);
     }
-
-    public void print() {
-        System.out.println(personNameToDetails.keySet());
-    }
 }
