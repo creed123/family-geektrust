@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 public class Family {
     public static void main(String[] args) throws Exception {
         initializeFamilyTree();
+        System.out.println();
         readAndExecuteInput(new File(args[0]));
     }
 

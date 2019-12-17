@@ -26,7 +26,7 @@ public class SonFinderService implements IRelationshipFinderService {
         } catch (Exception exception) {
             System.out.println("PERSON_NOT_FOUND");
         }
-        return Collections.EMPTY_LIST;
+        return null;
     }
 
     public static IRelationshipFinderService getSingletonService() {

@@ -6,7 +6,6 @@ import service.IRelationshipFinderService;
 import service.PersonRegistryService;
 import utility.FamilyUtil;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,7 +30,7 @@ public class PaternalUncleFinderService implements IRelationshipFinderService {
             } catch (Exception exception) {
                 System.out.println("PERSON_NOT_FOUND");
             }
-            return Collections.EMPTY_LIST;
+            return null;
     }
 
     public static IRelationshipFinderService getSingletonService() {

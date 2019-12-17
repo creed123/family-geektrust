@@ -28,6 +28,8 @@ public class AddSpouseService {
                 Person person = new Person(addSpouseBo.getName(), Gender.getGender(addSpouseBo.getGender()),
                         new ArrayList<>(), spouse.getName(), CounterService.incrementAndGet(), null);
                 PersonRegistryService.getPersonAccessor().registerPerson(person.getName(), person);
+                spouse.setSpouse(person.getName());
+                System.out.println("SPOUSE_ADDITION_SUCCEEDED");
             }
         } catch (Exception exception) {
             System.out.println("SPOUSE_ADDITION_FAILED");

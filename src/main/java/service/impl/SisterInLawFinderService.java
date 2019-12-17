@@ -7,6 +7,7 @@ import service.IRelationshipFinderService;
 import service.PersonRegistryService;
 import utility.FamilyUtil;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -19,15 +20,18 @@ public class SisterInLawFinderService implements IRelationshipFinderService {
     @Override
     public List<String> findRelations(String name) {
             try {
+                List<String> relations = new ArrayList<>();
                 Person person = Optional.ofNullable(PersonRegistryService.getPersonAccessor().getPerson(name)).orElseThrow(Exception::new);
-                Person spouse = Optional.ofNullable(PersonRegistryService.getPersonAccessor().getPerson(person.getSpouse())).orElseThrow(Exception::new);
-                Person spouseMother = Optional.ofNullable(PersonRegistryService.getPersonAccessor().getPerson(spouse.getParent())).orElseThrow(Exception::new);
-                List<String> relations = spouseMother.getChildren()
-                        .stream()
-                        .map(relation -> PersonRegistryService.getPersonAccessor().getPerson(relation))
-                        .filter(rel -> rel.getGender().equals(Gender.FEMALE) && !rel.getName().equals(spouse.getName()))
-                        .map(Person::getName)
-                        .collect(Collectors.toList());
+                Person spouse = Optional.ofNullable(PersonRegistryService.getPersonAccessor().getPerson(person.getSpouse())).orElse(null);
+                if (Optional.ofNullable(spouse).isPresent()) {
+                    Person spouseMother = Optional.ofNullable(PersonRegistryService.getPersonAccessor().getPerson(spouse.getParent())).orElseThrow(Exception::new);
+                     relations = spouseMother.getChildren()
+                            .stream()
+                            .map(relation -> PersonRegistryService.getPersonAccessor().getPerson(relation))
+                            .filter(rel -> rel.getGender().equals(Gender.FEMALE) && !rel.getName().equals(spouse.getName()))
+                            .map(Person::getName)
+                            .collect(Collectors.toList());
+                }
                 List<String> siblings = SiblingsFinderService.getSingletonService().findRelations(name);
                 relations.addAll(siblings.stream()
                         .map(sib -> PersonRegistryService.getPersonAccessor().getPerson(sib).getSpouse())
@@ -39,7 +43,7 @@ public class SisterInLawFinderService implements IRelationshipFinderService {
             } catch (Exception exception) {
                 System.out.println("PERSON_NOT_FOUND");
             }
-            return Collections.EMPTY_LIST;
+            return null;
     }
 
     public static IRelationshipFinderService getSingletonService() {

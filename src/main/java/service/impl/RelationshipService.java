@@ -2,7 +2,6 @@ package service.impl;
 
 import businessobjects.GetRelationshipBo;
 import registry.Relationship;
-import utility.FamilyUtil;
 
 import java.util.Arrays;
 import java.util.List;
