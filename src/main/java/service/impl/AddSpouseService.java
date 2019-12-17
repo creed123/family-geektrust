@@ -6,6 +6,7 @@ import model.Person;
 import service.CounterService;
 import service.PersonRegistryService;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Optional;
 
@@ -21,11 +22,15 @@ public class AddSpouseService {
     }
 
     public void addSpouse(AddSpouseBo addSpouseBo) throws Exception {
-        Person spouse = PersonRegistryService.getPersonAccessor().getPerson(addSpouseBo.getSpouseName());
-        if (Optional.ofNullable(spouse).isPresent()) {
-            Person person = new Person(addSpouseBo.getName(), Gender.getGender(addSpouseBo.getGender()),
-                    Collections.EMPTY_LIST, spouse.getName(), CounterService.incrementAndGet(), null);
-            PersonRegistryService.getPersonAccessor().registerPerson(person.getName(), person);
+        try {
+            Person spouse = PersonRegistryService.getPersonAccessor().getPerson(addSpouseBo.getSpouseName());
+            if (Optional.ofNullable(spouse).isPresent()) {
+                Person person = new Person(addSpouseBo.getName(), Gender.getGender(addSpouseBo.getGender()),
+                        new ArrayList<>(), spouse.getName(), CounterService.incrementAndGet(), null);
+                PersonRegistryService.getPersonAccessor().registerPerson(person.getName(), person);
+            }
+        } catch (Exception exception) {
+            System.out.println("SPOUSE_ADDITION_FAILED");
         }
     }
 

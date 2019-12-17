@@ -18,9 +18,9 @@ public class OperationExecutorService {
         return new OperationExecutorService();
     }
 
-    public void resolveOperationAndExecute(List<String> lineContents) throws Exception {
+    public void resolveAndExecute(List<String> lineContents) throws Exception {
         if (lineContents.get(0).equals("ADD_CHILD")) {
-            AddChildBo addChildBo = new AddChildBo(lineContents.get(1), lineContents.get(0), lineContents.get(2));
+            AddChildBo addChildBo = new AddChildBo(lineContents.get(1), lineContents.get(2), lineContents.get(3));
             AddChildOperationService.getSingletonClass().addChild(addChildBo);
         } else if (lineContents.get(0).equals("GET_RELATIONSHIP")) {
             GetRelationshipBo getRelationshipBo = new GetRelationshipBo(lineContents.get(1), lineContents.get(2));

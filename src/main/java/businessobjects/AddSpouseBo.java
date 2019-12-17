@@ -8,10 +8,10 @@ public class AddSpouseBo {
 
     private String spouseName;
 
-    public AddSpouseBo(String name, String gender, String spouseName) {
+    public AddSpouseBo(String name, String spouseName, String gender) {
         this.name = name;
-        this.gender = gender;
         this.spouseName = spouseName;
+        this.gender = gender;
     }
 
     public String getSpouseName() {
