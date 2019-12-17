@@ -38,6 +38,7 @@ public class BrotherInLawFinderService implements IRelationshipFinderService {
             List<String> siblings = SiblingsFinderService.getSingletonService().findRelations(name);
             relations.addAll(siblings.stream()
                     .map(sib -> PersonRegistryService.getPersonAccessor().getPerson(sib).getSpouse())
+                    .filter(sib -> PersonRegistryService.getPersonAccessor().getPerson(sib).getGender().equals(Gender.MALE))
                     .collect(Collectors.toList()));
             return FamilyUtil.orderByPriority(relations.stream()
                     .map(rel -> PersonRegistryService.getPersonAccessor().getPerson(rel))

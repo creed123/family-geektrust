@@ -1,6 +1,7 @@
 package service.impl;
 
 import businessobjects.AddChildBo;
+import businessobjects.AddSpouseBo;
 import businessobjects.GetRelationshipBo;
 
 import java.util.List;
@@ -24,6 +25,9 @@ public class OperationExecutorService {
         } else if (lineContents.get(0).equals("GET_RELATIONSHIP")) {
             GetRelationshipBo getRelationshipBo = new GetRelationshipBo(lineContents.get(1), lineContents.get(2));
             RelationshipService.getSingletonClass().printRelations(getRelationshipBo);
+        } else if (lineContents.get(0).equals("ADD_SPOUSE")) {
+            AddSpouseBo addSpouseBo = new AddSpouseBo(lineContents.get(1), lineContents.get(2), lineContents.get(3));
+            AddSpouseService.getSingletonClass().addSpouse(addSpouseBo);
         }
     }
 }

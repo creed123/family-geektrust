@@ -7,9 +7,9 @@ import java.util.Optional;
 
 public class PersonRegistryService {
 
-    public static PersonRegistryService personRegistryService;
+    private static PersonRegistryService personRegistryService;
 
-    Map<String, Person> personNameToDetails;
+    private Map<String, Person> personNameToDetails;
 
     public static PersonRegistryService getPersonAccessor() {
         if (Optional.ofNullable(personRegistryService).isPresent()) {

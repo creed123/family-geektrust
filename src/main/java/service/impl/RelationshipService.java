@@ -24,6 +24,10 @@ public class RelationshipService {
                 .filter(relationship -> relationship.relationship.equals(getRelationshipBo.getRelationShip()))
                 .findFirst().orElseThrow(Exception::new)
                 .relationshipFinderService.findRelations(getRelationshipBo.getName());
-        FamilyUtil.formatAndPrint(names);
+        if (names.isEmpty()) {
+            System.out.println("NONE");
+        } else {
+            FamilyUtil.formatAndPrint(names);
+        }
     }
 }
