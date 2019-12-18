@@ -1,6 +1,7 @@
 package utility;
 
 import model.Person;
+import service.impl.PrinterService;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,7 +16,6 @@ public class FamilyUtil {
     }
 
     public static void formatAndPrint(List<String> relations) {
-        relations.forEach(rel -> System.out.print(rel + " "));
-        System.out.println();
+        PrinterService.getSingletonService().print(relations);
     }
 }

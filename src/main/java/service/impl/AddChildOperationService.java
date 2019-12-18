@@ -7,6 +7,7 @@ import service.CounterService;
 import service.PersonRegistryService;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Optional;
 
 public class AddChildOperationService {
@@ -17,7 +18,8 @@ public class AddChildOperationService {
         if (Optional.ofNullable(addChildOperationService).isPresent()) {
             return addChildOperationService;
         }
-        return new AddChildOperationService();
+        addChildOperationService = new AddChildOperationService();
+        return addChildOperationService;
     }
 
     public void addChild(AddChildBo addChildBo) throws Exception {
@@ -28,9 +30,9 @@ public class AddChildOperationService {
             mother.getChildren().add(addChildBo.getName());
             Person child = new Person(addChildBo.getName(), Gender.getGender(addChildBo.getGender()), new ArrayList<>(), null, CounterService.incrementAndGet(), addChildBo.getMotherName());
             PersonRegistryService.getPersonAccessor().registerPerson(addChildBo.getName(), child);
-            System.out.println("CHILD_ADDITION_SUCCEEDED");
+            PrinterService.getSingletonService().print(Collections.singletonList("CHILD_ADDITION_SUCCEEDED"));
         } else {
-            System.out.println("CHILD_ADDITION_FAILED");
+            PrinterService.getSingletonService().print(Collections.singletonList("CHILD_ADDITION_FAILED"));
         }
     }
 }

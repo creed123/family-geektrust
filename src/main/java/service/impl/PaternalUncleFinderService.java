@@ -6,6 +6,8 @@ import service.IRelationshipFinderService;
 import service.PersonRegistryService;
 import utility.FamilyUtil;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -17,20 +19,25 @@ public class PaternalUncleFinderService implements IRelationshipFinderService {
 
     @Override
     public List<String> findRelations(String name) {
-            try {
-                Person person = Optional.ofNullable(PersonRegistryService.getPersonAccessor().getPerson(name)).orElseThrow(Exception::new);
-                Person mother = Optional.ofNullable(PersonRegistryService.getPersonAccessor().getPerson(person.getParent())).orElseThrow(Exception::new);
-                Person father = Optional.ofNullable(PersonRegistryService.getPersonAccessor().getPerson(mother.getSpouse())).orElseThrow(Exception::new);
-                Person grandMother = Optional.ofNullable(PersonRegistryService.getPersonAccessor().getPerson(father.getParent())).orElseThrow(Exception::new);
-                return FamilyUtil.orderByPriority(grandMother.getChildren()
-                        .stream()
-                        .map(relation -> PersonRegistryService.getPersonAccessor().getPerson(relation))
-                        .filter(rel -> rel.getGender().equals(Gender.MALE) && !rel.getName().equals(father.getName()))
-                        .collect(Collectors.toList()));
-            } catch (Exception exception) {
-                System.out.println("PERSON_NOT_FOUND");
+        try {
+            Person person = Optional.ofNullable(PersonRegistryService.getPersonAccessor().getPerson(name)).orElseThrow(Exception::new);
+            Person mother = Optional.ofNullable(PersonRegistryService.getPersonAccessor().getPerson(person.getParent())).orElseThrow(null);
+            List<String> relations = new ArrayList<>();
+            if (Optional.ofNullable(mother).isPresent()) {
+                Person father = Optional.ofNullable(PersonRegistryService.getPersonAccessor().getPerson(mother.getSpouse())).orElseThrow(null);
+                if (Optional.ofNullable(father).isPresent()) {
+                    relations= FamilyUtil.orderByPriority(SiblingsFinderService.getSingletonService().findRelations(father.getName())
+                            .stream()
+                            .map(relation -> PersonRegistryService.getPersonAccessor().getPerson(relation))
+                            .filter(rel -> rel.getGender().equals(Gender.MALE))
+                            .collect(Collectors.toList()));
+                }
             }
-            return null;
+            return relations;
+        } catch (Exception exception) {
+            PrinterService.getSingletonService().print(Collections.singletonList("PERSON_NOT_FOUND"));
+        }
+        return null;
     }
 
     public static IRelationshipFinderService getSingletonService() {

@@ -31,8 +31,7 @@ public class PersonRegistryService {
     public void registerPerson(String name, Person person) throws Exception {
         if (personNameToDetails.containsKey(name)) {
             System.out.println("throwing exception");
-            //TODO add custom exception here.
-            throw new Exception();
+            throw new Exception("Duplicate name entered");
         }
         personNameToDetails.put(name, person);
     }

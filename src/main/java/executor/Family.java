@@ -5,6 +5,7 @@ import model.Person;
 import service.CounterService;
 import service.PersonRegistryService;
 import service.impl.OperationExecutorService;
+import service.impl.PrinterService;
 
 import java.io.File;
 import java.util.*;
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
 public class Family {
     public static void main(String[] args) throws Exception {
         initializeFamilyTree();
-        System.out.println();
+        PrinterService.getSingletonService().setPrintOutput(true);
         readAndExecuteInput(new File(args[0]));
     }
 
@@ -22,7 +23,7 @@ public class Family {
         Person queenAnga = new Person("Anga", Gender.FEMALE, new ArrayList<>(), "Shan", CounterService.incrementAndGet(), null);
         PersonRegistryService.getPersonAccessor().registerPerson("Shan", kingShan);
         PersonRegistryService.getPersonAccessor().registerPerson("Anga", queenAnga);
-        readAndExecuteInput(new File("/Users/harshilnori/Documents/geektrust/src/main/resources/setup/InitialiseTree.csv"));
+        readAndExecuteInput(new File("src/main/resources/setup/InitialiseTree.csv"));
     }
 
     private static void readAndExecuteInput(File file) {

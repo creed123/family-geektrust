@@ -24,7 +24,7 @@ public class DaughterFinderService implements IRelationshipFinderService {
                     .filter(rel -> rel.getGender().equals(Gender.FEMALE))
                     .collect(Collectors.toList()));
         } catch (Exception exception) {
-            System.out.println("PERSON_NOT_FOUND");
+            PrinterService.getSingletonService().print(Collections.singletonList("PERSON_NOT_FOUND"));
         }
         return null;
     }

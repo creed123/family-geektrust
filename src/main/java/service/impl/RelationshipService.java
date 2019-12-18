@@ -4,6 +4,7 @@ import businessobjects.GetRelationshipBo;
 import registry.Relationship;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +28,7 @@ public class RelationshipService {
                 .relationshipFinderService.findRelations(getRelationshipBo.getName());
         Optional.ofNullable(names).ifPresent((List<String> result) -> {
             if (result.isEmpty()) {
-                System.out.println("NONE");
+                PrinterService.getSingletonService().print(Collections.singletonList("NONE"));
             } else {
                 formatAndPrint(result);
             }

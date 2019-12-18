@@ -18,7 +18,8 @@ public class AddSpouseService {
         if (Optional.ofNullable(addSpouseService).isPresent()) {
             return addSpouseService;
         }
-        return new AddSpouseService();
+        addSpouseService = new AddSpouseService();
+        return addSpouseService;
     }
 
     public void addSpouse(AddSpouseBo addSpouseBo) {
@@ -29,10 +30,10 @@ public class AddSpouseService {
                         new ArrayList<>(), spouse.getName(), CounterService.incrementAndGet(), null);
                 PersonRegistryService.getPersonAccessor().registerPerson(person.getName(), person);
                 spouse.setSpouse(person.getName());
-                System.out.println("SPOUSE_ADDITION_SUCCEEDED");
+                PrinterService.getSingletonService().print(Collections.singletonList("SPOUSE_ADDITION_SUCCEEDED"));
             }
         } catch (Exception exception) {
-            System.out.println("SPOUSE_ADDITION_FAILED");
+            PrinterService.getSingletonService().print(Collections.singletonList("SPOUSE_ADDITION_FAILED"));
         }
     }
 

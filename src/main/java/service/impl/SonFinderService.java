@@ -24,7 +24,7 @@ public class SonFinderService implements IRelationshipFinderService {
                     .filter(rel -> rel.getGender().equals(Gender.MALE))
                     .collect(Collectors.toList()));
         } catch (Exception exception) {
-            System.out.println("PERSON_NOT_FOUND");
+            PrinterService.getSingletonService().print(Collections.singletonList("PERSON_NOT_FOUND"));
         }
         return null;
     }
