@@ -1,6 +1,6 @@
 package service.impl;
 
-import businessobjects.GetRelationshipBo;
+import businessobjects.printRelationshipBo;
 import registry.Relationship;
 
 import java.util.Arrays;
@@ -21,11 +21,11 @@ public class RelationshipService {
         return new RelationshipService();
     }
 
-    public void printRelations(GetRelationshipBo getRelationshipBo) throws Exception {
+    public void printRelations(printRelationshipBo printRelationshipBo) throws Exception {
         List<String> names = Arrays.stream(Relationship.values())
-                .filter(relationship -> relationship.relationship.equals(getRelationshipBo.getRelationShip()))
+                .filter(relationship -> relationship.relationship.equals(printRelationshipBo.getRelationShip()))
                 .findFirst().orElseThrow(Exception::new)
-                .relationshipFinderService.findRelations(getRelationshipBo.getName());
+                .relationshipFinderService.findRelations(printRelationshipBo.getName());
         Optional.ofNullable(names).ifPresent((List<String> result) -> {
             if (result.isEmpty()) {
                 PrinterService.getSingletonService().print(Collections.singletonList("NONE"));

@@ -20,10 +20,10 @@ public class PaternalAuntFinderService implements IRelationshipFinderService {
     public List<String> findRelations(String name) {
         try {
             Person person = Optional.ofNullable(PersonRegistryService.getPersonAccessor().getPerson(name)).orElseThrow(Exception::new);
-            Person mother = Optional.ofNullable(PersonRegistryService.getPersonAccessor().getPerson(person.getParent())).orElseThrow(null);
+            Person mother = Optional.ofNullable(PersonRegistryService.getPersonAccessor().getPerson(person.getParent())).orElse(null);
             List<String> relations = new ArrayList<>();
             if (Optional.ofNullable(mother).isPresent()) {
-                Person father = Optional.ofNullable(PersonRegistryService.getPersonAccessor().getPerson(mother.getSpouse())).orElseThrow(null);
+                Person father = Optional.ofNullable(PersonRegistryService.getPersonAccessor().getPerson(mother.getSpouse())).orElse(null);
                 if (Optional.ofNullable(father).isPresent()) {
                     relations= FamilyUtil.orderByPriority(SiblingsFinderService.getSingletonService().findRelations(father.getName())
                             .stream()

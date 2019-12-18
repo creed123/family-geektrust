@@ -31,15 +31,12 @@ public class BrotherInLawFinderService implements IRelationshipFinderService {
             Person person = Optional.ofNullable(PersonRegistryService.getPersonAccessor().getPerson(name)).orElseThrow(Exception::new);
             Person spouse = Optional.ofNullable(PersonRegistryService.getPersonAccessor().getPerson(person.getSpouse())).orElse(null);
             if (Optional.ofNullable(spouse).isPresent()) {
-                Person spouseMother = Optional.ofNullable(PersonRegistryService.getPersonAccessor().getPerson(spouse.getParent())).orElse(null);
-                if (Optional.ofNullable(spouseMother).isPresent()) {
-                    relations = spouseMother.getChildren()
+                relations = SiblingsFinderService.getSingletonService().findRelations(spouse.getName())
                             .stream()
                             .map(relation -> PersonRegistryService.getPersonAccessor().getPerson(relation))
-                            .filter(rel -> rel.getGender().equals(Gender.MALE) && !rel.getName().equals(spouse.getName()))
+                            .filter(rel -> rel.getGender().equals(Gender.MALE))
                             .map(Person::getName)
                             .collect(Collectors.toList());
-                }
             }
             List<String> siblings = SiblingsFinderService.getSingletonService().findRelations(name);
             relations.addAll(siblings.stream()

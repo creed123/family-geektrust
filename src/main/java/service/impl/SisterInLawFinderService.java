@@ -24,16 +24,13 @@ public class SisterInLawFinderService implements IRelationshipFinderService {
                 Person person = Optional.ofNullable(PersonRegistryService.getPersonAccessor().getPerson(name)).orElseThrow(Exception::new);
                 Person spouse = Optional.ofNullable(PersonRegistryService.getPersonAccessor().getPerson(person.getSpouse())).orElse(null);
                 if (Optional.ofNullable(spouse).isPresent()) {
-                    Person spouseMother = Optional.ofNullable(PersonRegistryService.getPersonAccessor().getPerson(spouse.getParent())).orElseThrow(Exception::new);
-                    if (Optional.ofNullable(spouseMother).isPresent()) {
-                        relations = spouseMother.getChildren()
-                                .stream()
-                                .map(relation -> PersonRegistryService.getPersonAccessor().getPerson(relation))
-                                .filter(rel -> rel.getGender().equals(Gender.FEMALE) && !rel.getName().equals(spouse.getName()))
-                                .map(Person::getName)
-                                .collect(Collectors.toList());
+                    relations = SiblingsFinderService.getSingletonService().findRelations(spouse.getName())
+                            .stream()
+                            .map(relation -> PersonRegistryService.getPersonAccessor().getPerson(relation))
+                            .filter(rel -> rel.getGender().equals(Gender.FEMALE))
+                            .map(Person::getName)
+                            .collect(Collectors.toList());
                     }
-                }
                 List<String> siblings = SiblingsFinderService.getSingletonService().findRelations(name);
                 relations.addAll(siblings.stream()
                         .map(sib -> PersonRegistryService.getPersonAccessor().getPerson(sib).getSpouse())

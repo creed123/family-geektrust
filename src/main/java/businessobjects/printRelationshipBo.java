@@ -1,12 +1,12 @@
 package businessobjects;
 
-public class GetRelationshipBo {
+public class printRelationshipBo {
 
     private String name;
 
     private String relationShip;
 
-    public GetRelationshipBo(String name, String relationship) {
+    public printRelationshipBo(String name, String relationship) {
         this.name = name;
         this.relationShip = relationship;
     }
