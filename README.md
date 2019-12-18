@@ -7,7 +7,6 @@ Instructions to run the application:
 
 Key points: 
    -> Have assumed no two people in the family have the same name. Have used name parameter to uniquely identify any person in the tree.
-   -> Have used a simple Hash Map to store family members names and the corresponding attributes. 
+   -> Have used a Hash Map to store family members names and the corresponding attributes. 
       - This provides for faster lookup and as the mandatory operations do not require extensive traversal along the family tree, we have modelled the 'Person' class to contain information that makes it possible to easily retrieve any family relation within two levels of heirarchy. 
-   -> Have created singleton classes in classes where no temporary state information is stored so as to not create any unnecessary objects.
-   -> Have not yet added unit test cases due to time crunch. Taking the blame for this.
+   -> Have created singleton objects for classes where no temporary state information is stored so as to not create any unnecessary objects.
