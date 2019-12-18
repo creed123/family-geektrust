@@ -1,7 +1,7 @@
 # family-geektrust
 Instructions to run the application: 
    ->  Unzip the folder
-   ->  This project uses gradle as the build system. Build the jar with command ( ./gradlew clean build )
+   ->  This project uses gradle as the build system. Build the jar with command ( gradle clean build )
    ->  Once build is successful, there will be a jar file named geektrust.jar in the build/libs folder
    ->  Run the jar with the command java -jar $PATH_TO_TEST_FILE. Path to the test file can be relative from the current folder user is in.
 
