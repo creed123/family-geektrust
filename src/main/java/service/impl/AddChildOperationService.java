@@ -24,15 +24,17 @@ public class AddChildOperationService {
 
     public void addChild(AddChildBo addChildBo) throws Exception {
         Person mother = PersonRegistryService.getPersonAccessor().getPerson(addChildBo.getMotherName());
-        if (Optional.ofNullable(mother).isPresent()
-                && Optional.ofNullable(mother.getSpouse()).isPresent()
-                && Optional.ofNullable(mother).get().getGender().equals(Gender.FEMALE)) {
+        if (Optional.ofNullable(mother).isPresent() && Optional.ofNullable(mother.getSpouse()).isPresent()) {
             mother.getChildren().add(addChildBo.getName());
             Person child = new Person(addChildBo.getName(), Gender.getGender(addChildBo.getGender()), new ArrayList<>(), null, CounterService.incrementAndGet(), addChildBo.getMotherName());
             PersonRegistryService.getPersonAccessor().registerPerson(addChildBo.getName(), child);
             PrinterService.getSingletonService().print(Collections.singletonList("CHILD_ADDITION_SUCCEEDED"));
         } else {
-            PrinterService.getSingletonService().print(Collections.singletonList("CHILD_ADDITION_FAILED"));
+            if (Optional.ofNullable(mother).isPresent()) {
+                PrinterService.getSingletonService().print(Collections.singletonList("CHILD_ADDITION_FAILED"));
+            } else {
+                PrinterService.getSingletonService().print(Collections.singletonList("PERSON_NOT_FOUND"));
+            }
         }
     }
 }
